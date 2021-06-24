@@ -6,9 +6,9 @@
   "description": "A simple webpack site template",
   "license": "ISC",
   "scripts": {
-    "build": "webpack --mode=production --node-env=production",
-    "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production --node-env=production",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && webpack --mode=production --node-env=production",
+    "dev": "npm run clean && webpack --mode=development",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },

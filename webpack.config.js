@@ -2,23 +2,26 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const isProduction = process.env.NODE_ENV == 'production';
+const isProd = process.env.NODE_ENV == 'production';
 
 const appDir = path.join(__dirname, 'scripts');
 const assetsDir = path.join(__dirname, 'assets');
 const stylesDir = path.join(__dirname, 'styles');
 
 const config = {
-  mode: isProduction ? 'production' : 'development',
+  mode: isProd ? 'production' : 'development',
 
-  entry: {
-    main: path.join(appDir, 'app.js'),
-    style: path.join(stylesDir, 'main.scss'),
-  },
-
+  entry: [
+    path.join(appDir, 'app.js'),
+    path.join(stylesDir, 'main.scss'),
+  ],
+  
   output: {
     path: path.resolve(__dirname, 'dist'),
-  },
+    filename: isProd ? '[name].[contenthash].js' : '[name].js',
+    chunkFilename: isProd ? '[id].css' : '[id].[contenthash].css',
+    publicPath: '/',
+  },  
 
   devServer: {
     open: true,
@@ -31,8 +34,8 @@ const config = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
+      filename: isProd ? '[name].[contenthash].css' : '[name].css',
+      chunkFilename: isProd ? '[id].css' : '[id].[contenthash].css'
     }),
 
     // Other plugins here...
@@ -88,7 +91,7 @@ const config = {
 };
 
 module.exports = () => {
-  if (isProduction) {
+  if (isProd) {
     config.mode = 'production';
   } else {
     config.mode = 'development';
