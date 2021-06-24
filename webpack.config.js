@@ -14,7 +14,7 @@ const config = {
 
   entry: [
     path.join(appDir, 'app.js'),
-    path.join(stylesDir, 'main.scss'),
+    path.join(stylesDir, 'main.scss')
   ],
   
   output: {
@@ -37,9 +37,14 @@ const config = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: './assets/favicon',
+          from: path.join(assetsDir, 'favicon'),
           to: ''
-        }
+        },
+
+        // {
+        //   from: path.join(assetsDir, 'fonts'),
+        //   to: 'fonts/'
+        // }
       ],
     }),    
 
@@ -86,14 +91,30 @@ const config = {
           {
             loader: 'sass-loader'
           },
-      ],
+        ],
+      },
+      
+      {
+        test: /\.(jpe?g|png|gif|svg|woff2?|fnt|webp)$/,
+        loader: 'file-loader',
+        options: {
+          name (file) {
+            return '[hash].[ext]'
+          }
+        }
       },
 
-      // Image, svg, font assets
       {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-        loader: 'file-loader',
+        test: /\.(glsl|frag|vert)$/,
+        loader: 'raw-loader',
+        exclude: /node_modules/
       },
+
+      {
+        test: /\.(glsl|frag|vert)$/,
+        loader: 'glslify-loader',
+        exclude: /node_modules/
+      }      
 
       // Other loaders...
     ],
