@@ -7,8 +7,8 @@
   "license": "ISC",
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "webpack --mode=production --node-env=production",
-    "dev": "webpack --mode=development",
+    "build": "npm run clean && webpack --mode=production --node-env=production",
+    "dev": "npm run clean && webpack --mode=development",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },

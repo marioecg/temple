@@ -41,10 +41,10 @@ const config = {
           to: ''
         },
 
-        // {
-        //   from: path.join(assetsDir, 'fonts'),
-        //   to: 'fonts/'
-        // }
+        {
+          from: path.join(assetsDir, 'images'),
+          to: 'images/'
+        }
       ],
     }),    
 
@@ -93,17 +93,29 @@ const config = {
           },
         ],
       },
-      
+
+      // Image, svg assets
       {
-        test: /\.(jpe?g|png|gif|svg|woff2?|fnt|webp)$/,
+        test: /\.(svg|png|jpg|gif)$/i,
         loader: 'file-loader',
         options: {
-          name (file) {
-            return '[hash].[ext]'
-          }
-        }
+          name: '[name].[ext]',
+          outputPath: 'images/',
+
+        }        
       },
 
+      // Font assets
+      {
+        test: /\.(woff|woff2)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'fonts/'
+        }
+      },  
+      
+      // Shaders
       {
         test: /\.(glsl|frag|vert)$/,
         loader: 'raw-loader',
