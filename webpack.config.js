@@ -53,7 +53,7 @@ const config = {
       chunkFilename: isProd ? '[id].css' : '[id].[contenthash].css'
     }),
 
-    // Other plugins here...
+    // Other plugins...
   ],
 
   module: {
@@ -61,7 +61,13 @@ const config = {
       // JavaScript
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-proposal-class-properties']
+          }
+        }        
       },
 
       // Sass
