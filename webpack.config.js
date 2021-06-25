@@ -22,7 +22,13 @@ const config = {
     filename: isProd ? '[name].[contenthash].js' : '[name].js',
     chunkFilename: isProd ? '[id].css' : '[id].[contenthash].css',
     publicPath: '/',
-  },  
+  },
+  
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'scripts'),
+    },
+  },    
 
   devServer: {
     open: true,
